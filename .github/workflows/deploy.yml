@@ -27,6 +27,11 @@ jobs:
 
       MONGODB_CONNECTION_PROTOCOL: mongodb
       MONGODB_CLUSTER_ADDRESS: mongodb
+      #NOTE: In case job is not running on container, the address and protocol would need to be setup as following
+
+      # MONGODB_CONNECTION_PROTOCOL: mongodb
+      # MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 (specify port based on image)
+      
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
       PORT: 8080
@@ -39,6 +44,11 @@ jobs:
         # next would be the image container, due that services only runs on container images
         image: mongo
         # depending on the image, next would be the env required for configuration
+        
+        #NOTE: If job not running on container, port is required to be open so local runner may access service container
+
+        # ports:
+        #   - 27017:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example
