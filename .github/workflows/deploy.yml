@@ -37,7 +37,7 @@ jobs:
         # First would be the service(s) label
         mongodb:
           # next would be the image container, due that services only runs on container images
-          images: mongo
+          image: mongo
           # depending on the image, next would be the env required for configuration
           env:
             MONGO_INITDB_ROOT_USERNAME: root
