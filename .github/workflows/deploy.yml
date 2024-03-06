@@ -11,6 +11,15 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
+    #NOTE: To put a job and its steps into a container (run on a container?) do the following
+    container: node:16
+
+    #NOTE: In case that the container requires some values to be passed to its for setup and that are nor require to execute the jobs do the following
+
+    # container:
+    #   image: node:16
+    #   env:
+
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
       MONGODB_CLUSTER_ADDRESS: cluster0.mcalwku.mongodb.net
