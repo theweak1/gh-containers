@@ -18,7 +18,7 @@ jobs:
 
     # container:
     #   image: node:16
-    #   env:
+    #     env:
 
     env:
       #NOTE: Since the job requires the Address of the cluster, and we are using a service for the MongoDB we can set the address of the cluster as follows (using the name of the label from the service)
@@ -33,15 +33,15 @@ jobs:
 
       #NOTE: A Service containers are Docker containers that provide a simple and portable way for you to host services that you might need to test or operate your application in a workflow. More info on service containtes here: https://docs.github.com/en/actions/using-containerized-services/about-service-containers
       # To use a service containter do the following.
-      services:
-        # First would be the service(s) label
-        mongodb:
-          # next would be the image container, due that services only runs on container images
-          image: mongo
-          # depending on the image, next would be the env required for configuration
-          env:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
+    services:
+      # First would be the service(s) label
+      mongodb:
+        # next would be the image container, due that services only runs on container images
+        image: mongo
+        # depending on the image, next would be the env required for configuration
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: example
 
     steps:
       - name: Get Code
