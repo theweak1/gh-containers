@@ -11,7 +11,7 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
-    #NOTE: To put a job and its steps into a container (run on a container?) do the following
+    #NOTE: To put a job and its steps into a container (run on a container) do the following
     container: node:16
 
     #NOTE: In case that the container requires some values to be passed to its for setup and that are nor require to execute the jobs do the following
@@ -21,11 +21,28 @@ jobs:
     #   env:
 
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: cluster0.mcalwku.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      #NOTE: Since the job requires the Address of the cluster, and we are using a service for the MongoDB we can set the address of the cluster as follows (using the name of the label from the service)
+
+      #WARN: This only works if job is running in a container
+
+      MONGODB_CONNECTION_PROTOCOL: mongodb
+      MONGODB_CLUSTER_ADDRESS: mongodb
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: example
       PORT: 8080
+
+      #NOTE: A Service containers are Docker containers that provide a simple and portable way for you to host services that you might need to test or operate your application in a workflow. More info on service containtes here: https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+      # To use a service containter do the following.
+      services:
+        # First would be the service(s) label
+        mongodb:
+          # next would be the image container, due that services only runs on container images
+          images: mongo
+          # depending on the image, next would be the env required for configuration
+          env:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+
     steps:
       - name: Get Code
         uses: actions/checkout@v3
